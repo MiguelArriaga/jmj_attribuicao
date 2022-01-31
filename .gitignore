@@ -32,6 +32,7 @@ logs/**
 *.iml
 out/
 .idea_modules/
+.ipython
 
 ### macOS
 *.DS_Store
