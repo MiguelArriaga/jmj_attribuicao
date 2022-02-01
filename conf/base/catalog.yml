@@ -4,10 +4,45 @@
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
 
 parishes:
-  type: pandas.CSVDataSet
+  type: pandas.ExcelDataSet
   filepath: data/01_raw/parishes.xlsx
-
+  load_args:
+    engine: openpyxl
+    index_col: 0
 
 pilgrims:
-  type: pandas.CSVDataSet
+  type: pandas.ExcelDataSet
   filepath: data/01_raw/pilgrim_groups.xlsx
+  load_args:
+    engine: openpyxl
+    index_col: 0
+
+
+distance_matrix:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/distance_matrix.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+
+all_neighbours:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/all_neighbours.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+initial_language_seeds:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/initial_language_seeds.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+regions_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/plots/output_1.png
