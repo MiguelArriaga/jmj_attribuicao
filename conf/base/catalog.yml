@@ -9,6 +9,14 @@ parishes:
   load_args:
     engine: openpyxl
     index_col: 0
+    dtype: {
+      "pid": int,
+      "pname": str,
+      "psize": int,
+      "psize_h": int,
+      "x": float,
+      "y": float,
+    }
 
 pilgrims:
   type: pandas.ExcelDataSet
@@ -16,13 +24,22 @@ pilgrims:
   load_args:
     engine: openpyxl
     index_col: 0
-
+    dtype: {
+      "gid": int,
+      "gname": str,
+      "glanguage": str,
+      "gsize": int,
+      "gsize_h": int,
+      "macro_group": str,
+      "attributed_parish": int,
+    }
 
 distance_matrix:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/distance_matrix.csv
   load_args:
     index_col: 0
+    dtype: { 'pid': int }
   save_args:
     index: True
 
@@ -32,6 +49,7 @@ all_neighbours:
   filepath: data/02_intermediate/all_neighbours.csv
   load_args:
     index_col: 0
+    dtype: int
   save_args:
     index: True
 
@@ -40,8 +58,42 @@ initial_language_seeds:
   filepath: data/02_intermediate/initial_language_seeds.csv
   load_args:
     index_col: 0
+    dtype: {
+      "glanguage": str,
+      "gsize": int,
+      "seed": int,
+    }
+
   save_args:
     index: True
+
+language_seeds:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/language_seeds.csv
+  load_args:
+    index_col: 0
+    dtype: {
+      "glanguage": str,
+      "gsize": int,
+      "seed": int,
+    }
+
+  save_args:
+    index: True
+
+language_region_parishes:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/language_region_parishes.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    dtype: {
+      "pid": int,
+      "closest_seed": int,
+      "glanguage": str,
+    }
+
 
 regions_plot:
   type: matplotlib.MatplotlibWriter

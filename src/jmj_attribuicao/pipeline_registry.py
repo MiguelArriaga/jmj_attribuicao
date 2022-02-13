@@ -4,7 +4,7 @@ import os
 import logging
 
 from kedro.pipeline import Pipeline
-from .pipelines import get_pipelines
+from .pipelines.all_pipelines import all_pplns
 
 log = logging.getLogger(__name__)
 
@@ -15,8 +15,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
 
-    pipelines = get_pipelines()
-    log.info("automated pipelines:\n  - " + "\n  - ".join([n for n, f in pipelines]))
-    pipeline_dict = {n: f for n, f in pipelines}
-    pipeline_dict.update({"__default__": sum([f for n, f in pipelines])})
+    ppln_iter = all_pplns.items()
+    log.info("automated pipelines:\n  - " + "\n  - ".join([n for n, f in ppln_iter]))
+    pipeline_dict = {n: f for n, f in ppln_iter}
+    pipeline_dict.update({"__default__": sum([f for n, f in ppln_iter])})
     return pipeline_dict
