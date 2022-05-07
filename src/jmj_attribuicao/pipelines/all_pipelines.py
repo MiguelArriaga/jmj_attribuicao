@@ -2,7 +2,7 @@ from kedro.pipeline import Pipeline, node
 from .N0_pre_processing import generate_distance_matrix, generate_neighbours_catalog
 from .N1_region_construction import generate_initial_seeds, optimize_region_sizes
 from .N2_allocation_initialization import initialize_allocation
-from .P0_plot_functions import plot_regions
+from .P0_plot_functions import plot_regions, plot_initial_allocation
 
 all_pplns = {
     "generate_distance_matrix": Pipeline([
@@ -59,6 +59,14 @@ all_pplns = {
         ),
     ]),
 
+    "plot_initial_allocation": Pipeline([
+        node(
+            func=plot_initial_allocation,
+            inputs=["parishes", "initial_allocation"],
+            outputs="initial_allocation_plot",
+            name="plot_initial_allocation",
+        ),
+    ]),
 
 
 }
