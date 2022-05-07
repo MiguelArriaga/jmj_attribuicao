@@ -1,6 +1,7 @@
 from kedro.pipeline import Pipeline, node
 from .N0_pre_processing import generate_distance_matrix, generate_neighbours_catalog
-from .N1_region_construction import generate_preliminary_regions, optimize_region_sizes
+from .N1_region_construction import generate_initial_seeds, optimize_region_sizes
+from .N2_allocation_initialization import initialize_allocation
 from .P0_plot_functions import plot_regions
 
 all_pplns = {
@@ -22,6 +23,15 @@ all_pplns = {
         ),
     ]),
 
+    "generate_initial_seeds": Pipeline([
+        node(
+            func=generate_initial_seeds,
+            inputs=["parishes","pilgrims","distance_matrix"],
+            outputs="initial_language_seeds",
+            name="generate_initial_seeds",
+        ),
+    ]),
+
     "optimize_region_sizes": Pipeline([
         node(
             func=optimize_region_sizes,
@@ -39,5 +49,16 @@ all_pplns = {
             name="plot_regions",
         ),
     ]),
+
+    "initialize_allocation": Pipeline([
+        node(
+            func=initialize_allocation,
+            inputs=["parishes","pilgrims", "all_neighbours", "distance_matrix", "language_seeds", "language_region_parishes"],
+            outputs="initial_allocation",
+            name="initialize_allocation",
+        ),
+    ]),
+
+
 
 }

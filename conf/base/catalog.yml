@@ -97,4 +97,23 @@ language_region_parishes:
 
 regions_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/08_reporting/plots/output_1.png
+  filepath: data/08_reporting/plots/region_distribution.png
+
+
+initial_allocation:
+  type: pandas.ExcelDataSet
+  filepath: data/02_intermediate/initial_allocation.xlsx
+  save_args:
+    index: True
+  load_args:
+    engine: openpyxl
+    index_col: 0
+    dtype: {
+      "gid": int,
+      "gname": str,
+      "glanguage": str,
+      "gsize": int,
+      "gsize_h": int,
+      "macro_group": str,
+      "attributed_parish": int,
+    }
